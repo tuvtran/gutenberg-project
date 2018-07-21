@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractclassmethod
+from typing import List, Tuple
 
 
 class AbstractGutenberg:
@@ -18,13 +19,17 @@ class AbstractGutenberg:
         ...
 
     @abstractclassmethod
-    def get20MostFrequentWords(self):
+    def get20MostFrequentWords(self) -> List[Tuple[str, int]]:
         ...
 
     @abstractclassmethod
-    def get20MostInterestingFrequentWords(self):
+    def get20MostInterestingFrequentWords(self) -> List[Tuple[str, int]]:
         ...
 
     @abstractclassmethod
-    def get20LeastFrequentWords(self):
+    def get20LeastFrequentWords(self) -> List[Tuple[str, int]]:
+        ...
+
+    @abstractclassmethod
+    def getFrequencyOfWord(self) -> List[int]:
         ...
