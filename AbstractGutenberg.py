@@ -10,17 +10,17 @@ class AbstractGutenberg:
         pass
 
     @abstractclassmethod
-    def getTotalNumberOfWords() -> int:
+    def getTotalNumberOfWords(self) -> int:
         ...
 
     @abstractclassmethod
-    def getTotalUniqueWords() -> int:
+    def getTotalUniqueWords(self) -> int:
         ...
 
     @abstractclassmethod
-    def get20MostFrequentWords():
+    def get20MostFrequentWords(self):
         ...
 
     @abstractclassmethod
-    def get20MostInterestingFrequentWords():
+    def get20MostInterestingFrequentWords(self):
         ...
