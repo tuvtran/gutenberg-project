@@ -1,6 +1,8 @@
 import nltk
+import heapq
 from AbstractGutenberg import AbstractGutenberg
-from typing import Tuple
+from utils import getTopCommonEnglishWords
+from typing import List, Tuple
 
 
 class RepublicAnalysis(AbstractGutenberg):
@@ -42,9 +44,27 @@ class RepublicAnalysis(AbstractGutenberg):
         return len(set(self.tokens))
 
     def get20MostFrequentWords(self) -> Tuple[str, int]:
-        return sorted(
-            self.wordFrequencies.items(),
-            reverse=True, key=lambda pair: pair[1])[:20]
+        return heapq.nlargest(
+            n=20, iterable=self.wordFrequencies.items(),
+            key=lambda pair: pair[1]
+        )
+
+    def get20MostInterestingFrequentWords(self) -> List[Tuple[str, int]]:
+        mostCommonWords = getTopCommonEnglishWords()
+        filteredFrequencies = {
+            k: self.wordFrequencies[k] for k in self.wordFrequencies
+            if k not in mostCommonWords
+        }
+        return heapq.nlargest(
+            n=20, iterable=filteredFrequencies.items(),
+            key=lambda pair: pair[1]
+        )
+
+    def get20LeastFrequentWords(self) -> List[Tuple[str, int]]:
+        return heapq.nsmallest(
+            n=20, iterable=self.wordFrequencies.items(),
+            key=lambda pair: pair[1]
+        )
 
 
 if __name__ == "__main__":
@@ -52,9 +72,12 @@ if __name__ == "__main__":
 
     analysis = RepublicAnalysis(novel)
 
-    print("Analyzing The Republic by Plato")
-    print(f"Total number of words is {analysis.getTotalNumberOfWords()}")
-    print(f"Total number of unique words is {analysis.getTotalUniqueWords()}")
-    print(analysis.get20MostFrequentWords())
+    print("Analyzing The Republic by Plato\n")
+    print(f"Total number of words is {analysis.getTotalNumberOfWords()}\n")
+    print(f"Total number of unique words is {analysis.getTotalUniqueWords()}\n")
+    print(f"20 most frequent words are {analysis.get20MostFrequentWords()}\n")
+    print("20 most frequent interesting words are " +
+          f"{analysis.get20MostInterestingFrequentWords()}\n")
+    print(f"20 least frequest words are {analysis.get20LeastFrequentWords()}\n")
 
     novel.close()

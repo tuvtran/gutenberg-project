@@ -24,3 +24,7 @@ class AbstractGutenberg:
     @abstractclassmethod
     def get20MostInterestingFrequentWords(self):
         ...
+
+    @abstractclassmethod
+    def get20LeastFrequentWords(self):
+        ...
